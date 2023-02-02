@@ -6,7 +6,7 @@
 		<Authors>Chaoyebugao</Authors>
 		<Company />
 		<Product />
-		<PackageProjectUrl></PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/chaoyebugao/WxWorkBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/chaoyebugao/WxWorkBot</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>纯净企业微信机器人调用客户端</Description>

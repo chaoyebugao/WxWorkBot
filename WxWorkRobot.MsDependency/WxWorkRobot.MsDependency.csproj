@@ -8,6 +8,8 @@
     <Description>企业微信机器人调用客户端的dotnet原生依赖注入扩展接入</Description>
     <Copyright>MIT</Copyright>
     <RepositoryUrl>https://github.com/chaoyebugao/WxWorkBot</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/chaoyebugao/WxWorkBot</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
