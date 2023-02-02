@@ -58,5 +58,22 @@ namespace WxWorkRobot
             });
         }
 
+        /// <summary>
+        /// 发送Markdown格式内容
+        /// </summary>
+        /// <param name="content">Markdown内容</param>
+        /// <returns></returns>
+        public Task SendMarkdown(string content)
+        {
+            return webhookUrl.PostJsonAsync(new SendMsgDto()
+            {
+                msgtype = "markdown",
+                markdown = new MarkdownMessage()
+                {
+                     content = content,
+                },
+            });
+        }
+
     }
 }
