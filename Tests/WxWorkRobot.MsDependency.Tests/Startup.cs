@@ -6,7 +6,7 @@ namespace WxWorkRobot.MsDependency.Tests
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddWxWorkBotService("you-webhook-key-here");
+            services.AddWxWorkBotService("71610d83-e679-45a9-9e14-335f235307ee");
         }
     }
 }

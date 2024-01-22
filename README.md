@@ -22,6 +22,7 @@ await wxWorkBotClient.SendText("测试");
 ```C#
 public void ConfigureServices(IServiceCollection services)
 {
+    // 默认webhook key
     var webhookKey = "d77f7c20-90ba-462a-9251-36ecdd63c5d8";
     services.AddWxWorkBotService(webhookKey);
 }
@@ -55,5 +56,24 @@ public class SampleService
     {
         await client.SendText("测试");
     }
+}
+```
+
+如果如果想要使用非默认webhook key:
+``` C#
+private readonly WxWorkBotClient client;
+
+public WxWorkBotClientTest(WxWorkBotClient client)
+{
+    this.client = client;
+}
+
+[Theory]
+[InlineData("Test1")]
+public async Task SendText(string text)
+{
+    // 覆盖默认webhook key
+    client.SetKey("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
+    await client.SendText(text);
 }
 ```

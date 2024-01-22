@@ -12,9 +12,9 @@ namespace WxWorkRobot.MsDependency
         /// <summary>
         /// 添加企业微信机器人服务
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="webhookKey">Webhook Key</param>
-        /// <param name="serviceLifetime"></param>
+        /// <param name="services">服务集合</param>
+        /// <param name="webhookKey">默认Webhook Key</param>
+        /// <param name="serviceLifetime">注入的生命周期</param>
         /// <returns></returns>
         public static IServiceCollection AddWxWorkBotService(this IServiceCollection services, string webhookKey, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
         {
@@ -27,9 +27,9 @@ namespace WxWorkRobot.MsDependency
         /// <summary>
         /// 添加企业微信机器人服务
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <param name="serviceLifetime"></param>
+        /// <param name="services">服务集合</param>
+        /// <param name="configuration">配置（默认）</param>
+        /// <param name="serviceLifetime">注入的生命周期</param>
         /// <returns></returns>
         public static IServiceCollection AddWxWorkBotService(this IServiceCollection services, IConfiguration configuration, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
         {

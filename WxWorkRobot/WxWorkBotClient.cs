@@ -13,7 +13,7 @@ namespace WxWorkRobot
     /// </summary>
     public class WxWorkBotClient
     {
-        private readonly string webhookUrl;
+        private string webhookUrl;
 
         private WxWorkBotClient(string webhookUrl)
         {
@@ -23,7 +23,7 @@ namespace WxWorkRobot
         /// <summary>
         /// 根据Webhook地址获得实例
         /// </summary>
-        /// <param name="webhookUrl"></param>
+        /// <param name="webhookUrl">webhook地址</param>
         /// <returns></returns>
         public static WxWorkBotClient WithUrl(string webhookUrl)
         {
@@ -33,12 +33,30 @@ namespace WxWorkRobot
         /// <summary>
         /// 根据回调Key获得实例
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">webhook key</param>
         /// <returns></returns>
         public static WxWorkBotClient WithKey(string key)
         {
             var webhookUrl = $"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}";
             return WithUrl(webhookUrl);
+        }
+
+        /// <summary>
+        /// 设置发送URL
+        /// </summary>
+        /// <param name="url">webhook地址</param>
+        internal void SetUrl(string url)
+        {
+            webhookUrl = url;
+        }
+
+        /// <summary>
+        /// 从Key设置发送URL
+        /// </summary>
+        /// <param name="key">webhook key</param>
+        internal void SetKey(string key)
+        {
+            webhookUrl = $"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}";
         }
 
         /// <summary>
@@ -70,7 +88,7 @@ namespace WxWorkRobot
                 msgtype = "markdown",
                 markdown = new MarkdownMessage()
                 {
-                     content = content,
+                    content = content,
                 },
             });
         }
