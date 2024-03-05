@@ -10,12 +10,14 @@
 		<RepositoryUrl>https://github.com/chaoyebugao/WxWorkBot</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>纯净企业微信机器人调用客户端</Description>
-		<Version>1.2.0</Version>
+		<Version>1.3.0</Version>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Flurl.Http" Version="3.2.2" />
+		<!--<PackageReference Include="Flurl.Http" Version="3.2.2" />-->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RestSharp" Version="110.2.0" />
 	</ItemGroup>
 
 </Project>

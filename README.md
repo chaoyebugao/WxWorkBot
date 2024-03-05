@@ -1,9 +1,13 @@
 # WxWorkBot
 
+
 企业微信机器人，开箱即用。目前已实现：
 
  - 纯文本消息
  - Markdown消息
+
+## 版本更新Tip
+ - 1.3.0: 替换掉Flurl.Http，因为其可能会出现不能向后兼容的情况
 
 ### `WxWorkBotClient`类直接使用
 

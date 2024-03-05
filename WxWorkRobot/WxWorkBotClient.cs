@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WxWorkRobot.Models;
-using Flurl.Http;
+using RestSharp;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WxWorkRobot
 {
@@ -66,7 +67,10 @@ namespace WxWorkRobot
         /// <returns></returns>
         public Task SendText(string text)
         {
-            return webhookUrl.PostJsonAsync(new SendMsgDto()
+            var client = new RestClient(webhookUrl);
+            var request = new RestRequest();
+            request.AddHeader("Content-Type", "application/json");
+            request.AddBody(new SendMsgDto()
             {
                 msgtype = "text",
                 text = new TextMessage()
@@ -74,6 +78,8 @@ namespace WxWorkRobot
                     content = text,
                 },
             });
+
+            return client.PostAsync(request);
         }
 
         /// <summary>
@@ -83,7 +89,10 @@ namespace WxWorkRobot
         /// <returns></returns>
         public Task SendMarkdown(string content)
         {
-            return webhookUrl.PostJsonAsync(new SendMsgDto()
+            var client = new RestClient(webhookUrl);
+            var request = new RestRequest();
+            request.AddHeader("Content-Type", "application/json");
+            request.AddBody(new SendMsgDto()
             {
                 msgtype = "markdown",
                 markdown = new MarkdownMessage()
@@ -91,6 +100,8 @@ namespace WxWorkRobot
                     content = content,
                 },
             });
+
+            return client.PostAsync(request);
         }
 
     }
