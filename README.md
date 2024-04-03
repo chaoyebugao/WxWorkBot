@@ -63,7 +63,7 @@ public class SampleService
 }
 ```
 
-如果如果想要使用非默认webhook key:
+如果想要使用非默认webhook key:
 ``` C#
 private readonly WxWorkBotClient client;
 

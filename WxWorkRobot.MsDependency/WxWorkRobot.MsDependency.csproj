@@ -10,7 +10,7 @@
 		<RepositoryUrl>https://github.com/chaoyebugao/WxWorkBot</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/chaoyebugao/WxWorkBot</PackageProjectUrl>
-		<Version>1.2.0</Version>
+		<Version>1.3.0</Version>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
