@@ -9,7 +9,7 @@
 
 ## 版本更新Tip
  - 1.3.0: 替换掉Flurl.Http，因为其可能会出现不能向后兼容的情况
- - 2.0.2: 有几个关键变化，见下面[2.0版本变化](###2.0版本变化)
+ - 2.0.2: 有几个关键变化，见下面[2.0版本变化](#2.0版本变化)
  - 2.0.3: 支持方法级别设置回调Key
 
 ### 依赖注入
@@ -35,12 +35,10 @@ public void ConfigureServices(IServiceCollection services)
     //});
 }
 ```
-如果从配置文件加载配置进行依赖注入，`appsettings.json`中要配置有（注销掉的是默认值）：
+如果从配置文件加载配置进行依赖注入，`appsettings.json`中要配置有（其他支持配置的选项还有WebhookUrlTemplate/SendingResponseLogLevel）：
 ``` Json
 "WxWorkRobot": {
   "WebhookKey": "7b0a1288-1029-444e-9d50-22f1a9b17f47"
-  //"WebhookUrlTemplate": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={0}",
-  //"SendingResponseLogLevel": "None"
 }
 ```
 
