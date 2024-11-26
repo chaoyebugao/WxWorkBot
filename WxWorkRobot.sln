@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WxWorkRobot", "WxWorkRobot\WxWorkRobot.csproj", "{B78BB7EE-2763-4002-9F5F-A0BFA824692F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WxWorkRobot", "WxWorkRobot\WxWorkRobot.csproj", "{B78BB7EE-2763-4002-9F5F-A0BFA824692F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4A773728-97C3-4240-9B4D-0CF91BCB3D4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WxWorkRobot.Tests", "Tests\WxWorkRobot.Tests\WxWorkRobot.Tests.csproj", "{7E92C6CF-12B8-42CF-A78B-B8F23C7651AA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WxWorkRobot.MsDependency", "WxWorkRobot.MsDependency\WxWorkRobot.MsDependency.csproj", "{6D9FAC08-3145-46DB-991B-76654FB440FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WxWorkRobot.MsDependency.Tests", "Tests\WxWorkRobot.MsDependency.Tests\WxWorkRobot.MsDependency.Tests.csproj", "{E28DF1D9-0424-43A1-8515-FB4CFFB8974D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WxWorkRobot.Tests", "Tests\WxWorkRobot.Tests\WxWorkRobot.Tests.csproj", "{7E92C6CF-12B8-42CF-A78B-B8F23C7651AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,21 +23,12 @@ Global
 		{7E92C6CF-12B8-42CF-A78B-B8F23C7651AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E92C6CF-12B8-42CF-A78B-B8F23C7651AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E92C6CF-12B8-42CF-A78B-B8F23C7651AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D9FAC08-3145-46DB-991B-76654FB440FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D9FAC08-3145-46DB-991B-76654FB440FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D9FAC08-3145-46DB-991B-76654FB440FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D9FAC08-3145-46DB-991B-76654FB440FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E28DF1D9-0424-43A1-8515-FB4CFFB8974D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E28DF1D9-0424-43A1-8515-FB4CFFB8974D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E28DF1D9-0424-43A1-8515-FB4CFFB8974D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E28DF1D9-0424-43A1-8515-FB4CFFB8974D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7E92C6CF-12B8-42CF-A78B-B8F23C7651AA} = {4A773728-97C3-4240-9B4D-0CF91BCB3D4A}
-		{E28DF1D9-0424-43A1-8515-FB4CFFB8974D} = {4A773728-97C3-4240-9B4D-0CF91BCB3D4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2150EF6-0D2E-4190-87EC-2B123AFC9F09}

@@ -8,33 +8,30 @@
 
 ## 版本更新Tip
  - 1.3.0: 替换掉Flurl.Http，因为其可能会出现不能向后兼容的情况
-
-### `WxWorkBotClient`类直接使用
-
-先安装 WxWorkRobot 包: [![](https://img.shields.io/nuget/v/WxWorkRobot.svg)](https://www.nuget.org/packages/WxWorkRobot)，然后参考使用示例：
-
-```C#
-var webhookKey = "d77f7c20-90ba-462a-9251-36ecdd63c5d8";
-var wxWorkBotClient = WxWorkBotClient.WithKey(webhookKey);
-await wxWorkBotClient.SendText("测试");
-```
+ - 2.0.1: 有几个关键变化，见下面[2.0版本变化](#ver200change)
 
 ### 依赖注入（Microsoft Dependency）
-先安装 WxWorkRobot.MsDependency包: [![](https://img.shields.io/nuget/v/WxWorkRobot.MsDependency.svg)](https://www.nuget.org/packages/WxWorkRobot.MsDependency)
+先安装 WxWorkRobot: [![](https://img.shields.io/nuget/v/WxWorkRobot.svg)](https://www.nuget.org/packages/WxWorkRobot)
 
 配置服务AddWxWorkBotService：
 ```C#
 public void ConfigureServices(IServiceCollection services)
 {
-    // 默认webhook key
-    var webhookKey = "d77f7c20-90ba-462a-9251-36ecdd63c5d8";
-    services.AddWxWorkBotService(webhookKey);
+    //services.AddWxWorkBotService(
+    //    webhookKey: "7b0a1288-1029-444e-9d50-22f1a9b17f47",
+    //    sendingResponseLogLevel: Microsoft.Extensions.Logging.LogLevel.Information);
+
+    services.AddWxWorkBotService(new WxWorkBotOptions()
+    {
+        WebhookKey = "7b0a1288-1029-444e-9d50-22f1a9b17f47",
+        SendingResponseLogLevel = Microsoft.Extensions.Logging.LogLevel.Information,
+    });
 }
 ```
 或appsettings.json中配置有：
 ``` Json
 "WxWorkRobot": {
-  "WebhookKey": "d77f7c20-90ba-462a-9251-36ecdd63c5d8"
+  "WebhookKey": "7b0a1288-1029-444e-9d50-22f1a9b17f47"
 }
 ```
 然后依然是AddWxWorkBotService:
@@ -81,3 +78,9 @@ public async Task SendText(string text)
     await client.SendText(text);
 }
 ```
+
+### 2.0版本变化 {#ver200change}
+- WxWorkRobot.MsDependency包不再使用，直接合并为一个WxWorkRobot包
+- 不再使用RestSharp或第三方HTTP客户端，RestSharp仍然可能有版本问题
+- 使用[.NET 的 IHttpClientFactory](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/httpclient-factory)的方式去发起HTTP请求
+- 加入日志输出等选项，具体见[WxWorkBotOptions](https://github.com/chaoyebugao/WxWorkBot/blob/main/WxWorkRobot/Options/WxWorkBotOptions.cs)

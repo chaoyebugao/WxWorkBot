@@ -1,46 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WxWorkRobot.Models;
-using RestSharp;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WxWorkRobot
 {
     /// <summary>
     /// 企业微信机器人客户端
     /// </summary>
-    public class WxWorkBotClient
+    public sealed class WxWorkBotClient : IDisposable
     {
+        private readonly HttpClient httpClient;
+        private readonly WxWorkBotOptions options;
+        private readonly ILogger<WxWorkBotClient> logger;
+
+        public WxWorkBotClient(ILogger<WxWorkBotClient> logger,
+            HttpClient httpClient,
+            WxWorkBotOptions options)
+        {
+            this.logger = logger;
+            this.httpClient = httpClient;
+            this.options = options;
+
+            SetKey(options.WebhookKey);
+        }
+
+        /// <summary>
+        /// 释放
+        /// </summary>
+        public void Dispose() => httpClient?.Dispose();
+
+        /// <summary>
+        /// 回调URL模板
+        /// </summary>
+        internal const string DEFAULT_WEBHOOK_URL_TEMP = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={0}";
+
         private string webhookUrl;
-
-        private WxWorkBotClient(string webhookUrl)
-        {
-            this.webhookUrl = webhookUrl;
-        }
-
-        /// <summary>
-        /// 根据Webhook地址获得实例
-        /// </summary>
-        /// <param name="webhookUrl">webhook地址</param>
-        /// <returns></returns>
-        public static WxWorkBotClient WithUrl(string webhookUrl)
-        {
-            return new WxWorkBotClient(webhookUrl);
-        }
-
-        /// <summary>
-        /// 根据回调Key获得实例
-        /// </summary>
-        /// <param name="key">webhook key</param>
-        /// <returns></returns>
-        public static WxWorkBotClient WithKey(string key)
-        {
-            var webhookUrl = $"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}";
-            return WithUrl(webhookUrl);
-        }
 
         /// <summary>
         /// 设置发送URL
@@ -49,6 +47,7 @@ namespace WxWorkRobot
         internal void SetUrl(string url)
         {
             webhookUrl = url;
+            logger.LogTrace($"WxWorkBotClient-设置了回调URL: {url}");
         }
 
         /// <summary>
@@ -57,51 +56,91 @@ namespace WxWorkRobot
         /// <param name="key">webhook key</param>
         internal void SetKey(string key)
         {
-            webhookUrl = $"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}";
+            webhookUrl = string.Format(options.WebhookUrlTemplate, key);
+            logger.LogTrace($"WxWorkBotClient-设置了回调Key: {key}");
         }
 
         /// <summary>
-        /// 发送纯文本
+        /// 异步发送纯文本
         /// </summary>
         /// <param name="text">纯文本</param>
         /// <returns></returns>
-        public Task SendText(string text)
+        public async Task SendText(string text)
         {
-            var client = new RestClient(webhookUrl);
-            var request = new RestRequest();
-            request.AddHeader("Content-Type", "application/json");
-            request.AddBody(new SendMsgDto()
+            try
             {
-                msgtype = "text",
-                text = new TextMessage()
+                // 将数据对象序列化为JSON格式
+                string jsonContent = JsonConvert.SerializeObject(new SendMsgDto()
                 {
-                    content = text,
-                },
-            });
+                    msgtype = "text",
+                    text = new TextMessage()
+                    {
+                        content = text,
+                    },
+                });
 
-            return client.PostAsync(request);
+                // 创建HttpContent对象
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                // 发送POST请求
+                var response = await httpClient.PostAsync(webhookUrl, content);
+
+                // 确保请求成功
+                response.EnsureSuccessStatusCode();
+
+                // 读取响应内容
+                var responseString = await response.Content.ReadAsStringAsync();
+                if (options.SendingResponseLogLevel != LogLevel.None)
+                {
+                    logger.Log(options.SendingResponseLogLevel, $"WxWorkBotClient-发送纯文本响应: {responseString}");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"WxWorkBotClient-发送纯文本异常");
+            }
+
         }
 
         /// <summary>
-        /// 发送Markdown格式内容
+        /// 异步发送Markdown格式内容
         /// </summary>
-        /// <param name="content">Markdown内容</param>
+        /// <param name="md">Markdown内容</param>
         /// <returns></returns>
-        public Task SendMarkdown(string content)
+        public async Task SendMarkdown(string md)
         {
-            var client = new RestClient(webhookUrl);
-            var request = new RestRequest();
-            request.AddHeader("Content-Type", "application/json");
-            request.AddBody(new SendMsgDto()
+            try
             {
-                msgtype = "markdown",
-                markdown = new MarkdownMessage()
+                // 将数据对象序列化为JSON格式
+                string jsonContent = JsonConvert.SerializeObject(new SendMsgDto()
                 {
-                    content = content,
-                },
-            });
+                    msgtype = "markdown",
+                    markdown = new MarkdownMessage()
+                    {
+                        content = md,
+                    },
+                });
 
-            return client.PostAsync(request);
+                // 创建HttpContent对象
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                // 发送POST请求
+                var response = await httpClient.PostAsync(webhookUrl, content);
+
+                // 确保请求成功
+                response.EnsureSuccessStatusCode();
+
+                // 读取响应内容
+                var responseString = await response.Content.ReadAsStringAsync();
+                if (options.SendingResponseLogLevel != LogLevel.None)
+                {
+                    logger.Log(options.SendingResponseLogLevel, $"WxWorkBotClient-发送Markdown响应: {responseString}");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"WxWorkBotClient-发送Markdown异常");
+            }
         }
 
     }
