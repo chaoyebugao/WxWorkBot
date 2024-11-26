@@ -10,7 +10,7 @@
 		<RepositoryUrl>https://github.com/chaoyebugao/WxWorkBot</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>纯净企业微信机器人调用客户端</Description>
-		<Version>2.0.2</Version>
+		<Version>2.0.3</Version>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageReleaseNotes>注意，从2.0开始不再依赖第三方Http客户端，也不再分成两个包，WxWorkRobot.MsDependency不再使用，详细改动见README</PackageReleaseNotes>
 	</PropertyGroup>

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WxWorkRobot.Models;
+using WxWorkRobot.Options;
 
 namespace WxWorkRobot
 {
@@ -41,9 +42,9 @@ namespace WxWorkRobot
         private string webhookUrl;
 
         /// <summary>
-        /// 设置发送URL
+        /// 【在实例范围内】设置发送URL
         /// </summary>
-        /// <param name="url">webhook地址</param>
+        /// <param name="url">新的webhook地址</param>
         internal void SetUrl(string url)
         {
             webhookUrl = url;
@@ -51,9 +52,9 @@ namespace WxWorkRobot
         }
 
         /// <summary>
-        /// 从Key设置发送URL
+        /// 【在实例范围内】从Key设置发送URL
         /// </summary>
-        /// <param name="key">webhook key</param>
+        /// <param name="key">指定新的回调Key</param>
         internal void SetKey(string key)
         {
             webhookUrl = string.Format(options.WebhookUrlTemplate, key);
@@ -64,8 +65,9 @@ namespace WxWorkRobot
         /// 异步发送纯文本
         /// </summary>
         /// <param name="text">纯文本</param>
+        /// <param name="webhookKey">【在方法范围内】指定新的回调Key。如未指定则使用初始化的Key</param>
         /// <returns></returns>
-        public async Task SendText(string text)
+        public async Task SendText(string text, string webhookKey = null)
         {
             try
             {
@@ -82,8 +84,9 @@ namespace WxWorkRobot
                 // 创建HttpContent对象
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
+                var url = string.IsNullOrEmpty(webhookKey) ? webhookUrl : string.Format(options.WebhookUrlTemplate, webhookKey);
                 // 发送POST请求
-                var response = await httpClient.PostAsync(webhookUrl, content);
+                var response = await httpClient.PostAsync(url, content);
 
                 // 确保请求成功
                 response.EnsureSuccessStatusCode();
@@ -106,8 +109,9 @@ namespace WxWorkRobot
         /// 异步发送Markdown格式内容
         /// </summary>
         /// <param name="md">Markdown内容</param>
+        /// <param name="webhookKey">【在方法范围内】指定新的回调Key。如未指定则使用初始化的Key</param>
         /// <returns></returns>
-        public async Task SendMarkdown(string md)
+        public async Task SendMarkdown(string md, string webhookKey = null)
         {
             try
             {
@@ -124,8 +128,9 @@ namespace WxWorkRobot
                 // 创建HttpContent对象
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
+                var url = string.IsNullOrEmpty(webhookKey) ? webhookUrl : string.Format(options.WebhookUrlTemplate, webhookKey);
                 // 发送POST请求
-                var response = await httpClient.PostAsync(webhookUrl, content);
+                var response = await httpClient.PostAsync(url, content);
 
                 // 确保请求成功
                 response.EnsureSuccessStatusCode();

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace WxWorkRobot
+namespace WxWorkRobot.Options
 {
+    /// <summary>
+    /// 配置选项
+    /// </summary>
     public class WxWorkBotOptions
     {
         /// <summary>

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using WxWorkRobot.Options;
 
 namespace WxWorkRobot
 {
@@ -77,10 +78,18 @@ namespace WxWorkRobot
                 webhookUrlTemplate = WxWorkBotClient.DEFAULT_WEBHOOK_URL_TEMP;
             }
 
+            var sendingResponseLogLevelStr = configuration["WxWorkRobot:SendingResponseLogLevel"];
+            var sendingResponseLogLevel = LogLevel.None;
+            if (!string.IsNullOrEmpty(sendingResponseLogLevelStr))
+            {
+                Enum.TryParse(configuration["WxWorkRobot:SendingResponseLogLevel"], out sendingResponseLogLevel);
+            }
+            
             var options = new WxWorkBotOptions()
             {
                 WebhookKey = webhookKey,
                 WebhookUrlTemplate = webhookUrlTemplate,
+                SendingResponseLogLevel = sendingResponseLogLevel,
             };
 
             return AddWxWorkBotService(services, options, serviceLifetime);
