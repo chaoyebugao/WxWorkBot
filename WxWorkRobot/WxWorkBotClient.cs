@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using WxWorkRobot.Models;
 using WxWorkRobot.Options;
 
 namespace WxWorkRobot
@@ -72,14 +70,17 @@ namespace WxWorkRobot
             try
             {
                 // 将数据对象序列化为JSON格式
-                string jsonContent = JsonConvert.SerializeObject(new SendMsgDto()
-                {
-                    msgtype = "text",
-                    text = new TextMessage()
-                    {
-                        content = text,
-                    },
-                });
+                //string jsonContent = JsonConvert.SerializeObject(new SendMsgDto()
+                //{
+                //    msgtype = "text",
+                //    text = new TextMessage()
+                //    {
+                //        content = text,
+                //    },
+                //});
+
+                //直接拼装字符串
+                var jsonContent = $@"{{""msgtype"":""text"",""text"":{{""content"":""{text}""}}}}";
 
                 // 创建HttpContent对象
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -116,14 +117,16 @@ namespace WxWorkRobot
             try
             {
                 // 将数据对象序列化为JSON格式
-                string jsonContent = JsonConvert.SerializeObject(new SendMsgDto()
-                {
-                    msgtype = "markdown",
-                    markdown = new MarkdownMessage()
-                    {
-                        content = md,
-                    },
-                });
+                //string jsonContent = JsonConvert.SerializeObject(new SendMsgDto()
+                //{
+                //    msgtype = "markdown",
+                //    markdown = new MarkdownMessage()
+                //    {
+                //        content = md,
+                //    },
+                //});
+
+                var jsonContent = $@"{{""msgtype"":""markdown"",""markdown"":{{""content"":""{md}""}}}}";
 
                 // 创建HttpContent对象
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");

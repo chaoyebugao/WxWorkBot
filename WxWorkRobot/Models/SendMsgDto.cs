@@ -18,7 +18,6 @@ namespace WxWorkRobot.Models
         /// </summary>
         public string msgtype { get; set; }
 
-
         /// <summary>
         /// markdown类型消息
         /// </summary>
